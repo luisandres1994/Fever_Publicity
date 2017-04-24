@@ -16,6 +16,8 @@ public class Fever_Publicity {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        clock C = new clock();
+       
     }
     
 }
