@@ -1,9 +1,12 @@
 
 package fever_publicity;
 
+import static java.lang.Thread.sleep;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Interfas extends javax.swing.JFrame implements Runnable  {
@@ -24,6 +27,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
 
         Pantallagrande = new javax.swing.JInternalFrame();
         jL_Hora = new javax.swing.JLabel();
+        mensaje = new javax.swing.JTextField();
         Pantallachica = new javax.swing.JInternalFrame();
         jL_Hora1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -38,6 +42,8 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         Pantallagrande.setPreferredSize(new java.awt.Dimension(500, 400));
         Pantallagrande.setVisible(true);
 
+        mensaje.setEditable(false);
+
         javax.swing.GroupLayout PantallagrandeLayout = new javax.swing.GroupLayout(Pantallagrande.getContentPane());
         Pantallagrande.getContentPane().setLayout(PantallagrandeLayout);
         PantallagrandeLayout.setHorizontalGroup(
@@ -46,13 +52,19 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                 .addContainerGap(416, Short.MAX_VALUE)
                 .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(PantallagrandeLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PantallagrandeLayout.setVerticalGroup(
             PantallagrandeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PantallagrandeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(337, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         Pantallachica.setTitle("Pantalla chica");
@@ -159,9 +171,15 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         tiempo = hora+":"+minutos+":"+segundos;
     }
     
-    public synchronized void mensaje_grande()
+    public synchronized void mensaje_grande(String msg) 
     {
-        
+        mensaje.setText(msg);
+        try {
+            sleep(10000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Interfas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        mensaje.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -172,6 +190,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
     private javax.swing.JLabel jL_Hora1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField mensaje;
     // End of variables declaration//GEN-END:variables
 
     @Override
