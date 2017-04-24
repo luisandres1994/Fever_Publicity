@@ -116,11 +116,16 @@ public class entrada extends javax.swing.JFrame {
 
         n=Integer.parseInt(txtA.getText());
         m=Integer.parseInt(txtB.getText());
+        Interfas I = new Interfas();
+        I.setVisible(true);
+        client C=new client();
+        C.setVisible(true);
+        this.dispose();
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtBActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -136,7 +141,11 @@ public class entrada extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAKeyTyped
 
     private void txtBKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBKeyTyped
-        // TODO add your handling code here:
+        char num = evt.getKeyChar();
+        if((num<'0' || num>'9') && (num!=(char)KeyEvent.VK_BACK_SPACE)){
+        evt.consume();
+        JOptionPane.showMessageDialog(null, "Solo se admiten números enteros","",JOptionPane.INFORMATION_MESSAGE);
+	}
     }//GEN-LAST:event_txtBKeyTyped
 
 
