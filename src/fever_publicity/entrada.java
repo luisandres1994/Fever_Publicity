@@ -23,6 +23,7 @@ public class entrada extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Ingresar número de clientes");
 
@@ -116,10 +117,10 @@ public class entrada extends javax.swing.JFrame {
 
         n=Integer.parseInt(txtA.getText());
         m=Integer.parseInt(txtB.getText());
-        Interfas I = new Interfas();
-        I.setVisible(true);
-        client C=new client();
+       
+        client C=new client(n,m);
         C.setVisible(true);
+        
         this.dispose();
     }
     }//GEN-LAST:event_jButton1ActionPerformed

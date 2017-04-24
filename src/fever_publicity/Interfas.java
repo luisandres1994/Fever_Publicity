@@ -22,54 +22,55 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        Pantallagrande = new javax.swing.JInternalFrame();
         jL_Hora = new javax.swing.JLabel();
-        jInternalFrame2 = new javax.swing.JInternalFrame();
+        Pantallachica = new javax.swing.JInternalFrame();
         jL_Hora1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Modulo Pantallas");
         setResizable(false);
 
-        jInternalFrame1.setTitle("Pantalla Grande");
-        jInternalFrame1.setPreferredSize(new java.awt.Dimension(500, 400));
-        jInternalFrame1.setVisible(true);
+        Pantallagrande.setTitle("Pantalla Grande");
+        Pantallagrande.setPreferredSize(new java.awt.Dimension(500, 400));
+        Pantallagrande.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PantallagrandeLayout = new javax.swing.GroupLayout(Pantallagrande.getContentPane());
+        Pantallagrande.getContentPane().setLayout(PantallagrandeLayout);
+        PantallagrandeLayout.setHorizontalGroup(
+            PantallagrandeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallagrandeLayout.createSequentialGroup()
                 .addContainerGap(416, Short.MAX_VALUE)
                 .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+        PantallagrandeLayout.setVerticalGroup(
+            PantallagrandeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PantallagrandeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(337, Short.MAX_VALUE))
         );
 
-        jInternalFrame2.setTitle("Pantalla chica");
-        jInternalFrame2.setPreferredSize(new java.awt.Dimension(350, 300));
-        jInternalFrame2.setVisible(true);
+        Pantallachica.setTitle("Pantalla chica");
+        Pantallachica.setPreferredSize(new java.awt.Dimension(350, 300));
+        Pantallachica.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame2Layout.createSequentialGroup()
+        javax.swing.GroupLayout PantallachicaLayout = new javax.swing.GroupLayout(Pantallachica.getContentPane());
+        Pantallachica.getContentPane().setLayout(PantallachicaLayout);
+        PantallachicaLayout.setHorizontalGroup(
+            PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
                 .addContainerGap(266, Short.MAX_VALUE)
                 .addComponent(jL_Hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jInternalFrame2Layout.setVerticalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame2Layout.createSequentialGroup()
+        PantallachicaLayout.setVerticalGroup(
+            PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PantallachicaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jL_Hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(237, Short.MAX_VALUE))
@@ -118,7 +119,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Pantallagrande, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -126,7 +127,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Pantallachica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(61, 61, 61))))))
         );
         layout.setVerticalGroup(
@@ -137,8 +138,8 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Pantallachica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Pantallagrande, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -164,9 +165,9 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame Pantallachica;
+    private javax.swing.JInternalFrame Pantallagrande;
     private javax.swing.JTable Tabla;
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jL_Hora;
     private javax.swing.JLabel jL_Hora1;
     private javax.swing.JLabel jLabel1;
