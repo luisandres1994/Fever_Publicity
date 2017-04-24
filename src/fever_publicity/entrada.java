@@ -116,7 +116,7 @@ public class entrada extends javax.swing.JFrame {
         double m;
 
         n=Integer.parseInt(txtA.getText());
-        m=Integer.parseInt(txtB.getText());
+        m=Double.parseDouble(txtB.getText());
        
         client C=new client(n,m);
         C.setVisible(true);
@@ -143,9 +143,9 @@ public class entrada extends javax.swing.JFrame {
 
     private void txtBKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBKeyTyped
         char num = evt.getKeyChar();
-        if((num<'0' || num>'9') && (num!=(char)KeyEvent.VK_BACK_SPACE)){
+        if((num<'0' || num>'9') && (num!=(char)KeyEvent.VK_BACK_SPACE) && num!='.'){
         evt.consume();
-        JOptionPane.showMessageDialog(null, "Solo se admiten números enteros","",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Solo se admiten números reales","",JOptionPane.INFORMATION_MESSAGE);
 	}
     }//GEN-LAST:event_txtBKeyTyped
 
