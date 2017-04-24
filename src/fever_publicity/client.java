@@ -2,6 +2,8 @@
 package fever_publicity;
 
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class client extends javax.swing.JFrame {
@@ -43,7 +45,7 @@ public class client extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jC_id_clientes = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        dateTimePicker1 = new com.lavantech.gui.comp.DateTimePicker();
+        Hora = new com.lavantech.gui.comp.DateTimePicker();
         jText_monto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,7 +142,7 @@ public class client extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
@@ -175,7 +177,7 @@ public class client extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton1)
                             .addComponent(jLabel5)))
-                    .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
@@ -205,7 +207,7 @@ public class client extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(Jtiempo.getText().equals("") || Jmensaje.getText().equals("") 
-                || (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()))
+                || (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) || jC_id_clientes.getSelectedIndex()==-1)
         {
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar","",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -219,6 +221,10 @@ public class client extends javax.swing.JFrame {
                 costo  =costo + (2500*15)+Integer.parseInt(Jtiempo.getText())*500;
             if(jRadioButton2.isSelected())
                 costo  =costo + (1500*15)+Integer.parseInt(Jtiempo.getText())*500;
+            Calendar calendario = Hora.getCalendar();
+            System.out.println(calendario.get(Calendar.HOUR_OF_DAY));
+            if(calendario.get(Calendar.HOUR_OF_DAY)>= 7 && calendario.get(Calendar.HOUR_OF_DAY)<= 10)
+                costo = costo - (costo*0.5);
             
             if(costo>presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())])
                 JOptionPane.showMessageDialog(null, "No alcanza el presupuesto","",JOptionPane.INFORMATION_MESSAGE);
@@ -227,6 +233,8 @@ public class client extends javax.swing.JFrame {
                 presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]= presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]- costo;
                 
                 //se llama al hilo
+                
+                
                 if(presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]<25000)
                     jC_id_clientes.removeItemAt(jC_id_clientes.getSelectedIndex());
                 
@@ -243,9 +251,9 @@ public class client extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.lavantech.gui.comp.DateTimePicker Hora;
     private javax.swing.JTextArea Jmensaje;
     private javax.swing.JTextField Jtiempo;
-    private com.lavantech.gui.comp.DateTimePicker dateTimePicker1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
