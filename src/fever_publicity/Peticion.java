@@ -5,7 +5,10 @@
  */
 package fever_publicity;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +32,11 @@ public class Peticion extends Thread{
     public void run()
     {
         
-        I.mensaje_grande(msg);
+        try {
+            I.mensaje_grande(msg,date,duracion);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
     }
 }

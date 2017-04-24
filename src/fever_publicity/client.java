@@ -21,7 +21,7 @@ public class client extends javax.swing.JFrame {
             presupuestos[i]=m;
             jC_id_clientes.addItem(i);
         }
-        I=new Interfas();
+        I=new Interfas(this);
         I.setVisible(true);
         
     }
@@ -39,7 +39,7 @@ public class client extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        salir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Jmensaje = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
@@ -48,7 +48,7 @@ public class client extends javax.swing.JFrame {
         Hora = new com.lavantech.gui.comp.DateTimePicker();
         jText_monto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Modulo Administrador de Peticiones");
         setResizable(false);
 
@@ -77,7 +77,12 @@ public class client extends javax.swing.JFrame {
 
         jButton2.setText("Nuevo Cliente");
 
-        jButton3.setText("Cancelar");
+        salir.setText("salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
 
         Jmensaje.setColumns(20);
         Jmensaje.setRows(5);
@@ -112,7 +117,7 @@ public class client extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(salir)))
                 .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -184,7 +189,7 @@ public class client extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(salir))
                 .addGap(36, 36, 36))
         );
 
@@ -222,17 +227,23 @@ public class client extends javax.swing.JFrame {
             if(jRadioButton2.isSelected())
                 costo  =costo + (1500*15)+Integer.parseInt(Jtiempo.getText())*500;
             Calendar calendario = Hora.getCalendar();
+            System.out.println(calendario.get(Calendar.HOUR_OF_DAY));
             if(calendario.get(Calendar.HOUR_OF_DAY)>= 7 && calendario.get(Calendar.HOUR_OF_DAY)<= 10)
                 costo = costo - (costo*0.5);
             
             if(costo>presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())])
                 JOptionPane.showMessageDialog(null, "No alcanza el presupuesto","",JOptionPane.INFORMATION_MESSAGE);
+            else if(Hora.getDate().compareTo(new Date())<0)
+            {
+                JOptionPane.showMessageDialog(null, "La fecha-Hora ingresada ya paso 'Invalida' ","",JOptionPane.INFORMATION_MESSAGE);
+            }
             else{
                 
                 presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]= presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]- costo;
                 
-                //se llama al hilo
                 
+                Peticion P = new Peticion(I,Jmensaje.getText(),Hora.getDate(),Integer.parseInt(Jtiempo.getText()),Integer.parseInt(jC_id_clientes.getSelectedItem().toString()));
+                P.start();
                 
                 if(presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]<25000)
                     jC_id_clientes.removeItemAt(jC_id_clientes.getSelectedIndex());
@@ -247,6 +258,13 @@ public class client extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        
+        I.setVisible(true);
+        this.setVisible(false);
+        I.mostratadmin();
+    }//GEN-LAST:event_salirActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -255,7 +273,6 @@ public class client extends javax.swing.JFrame {
     private javax.swing.JTextField Jtiempo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jC_id_clientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -266,5 +283,6 @@ public class client extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jText_monto;
+    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }
