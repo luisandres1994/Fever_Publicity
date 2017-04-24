@@ -222,7 +222,6 @@ public class client extends javax.swing.JFrame {
             if(jRadioButton2.isSelected())
                 costo  =costo + (1500*15)+Integer.parseInt(Jtiempo.getText())*500;
             Calendar calendario = Hora.getCalendar();
-            System.out.println(calendario.get(Calendar.HOUR_OF_DAY));
             if(calendario.get(Calendar.HOUR_OF_DAY)>= 7 && calendario.get(Calendar.HOUR_OF_DAY)<= 10)
                 costo = costo - (costo*0.5);
             
