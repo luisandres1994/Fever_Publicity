@@ -11,6 +11,8 @@ public class client extends javax.swing.JFrame {
    int n;
    double[] presupuestos;
     Interfas I ;
+    
+    //Se inician los mudulos tanto clientes como las pantallas
     public client(int n, double m) {
         this.n=n;
         presupuestos = new double[n];
@@ -193,11 +195,13 @@ public class client extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //seleccion del cliente
     private void jC_id_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_id_clientesActionPerformed
         if(jC_id_clientes.getSelectedIndex()!=-1)jText_monto.setText(String.valueOf(presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]));
         else jText_monto.setText("");
     }//GEN-LAST:event_jC_id_clientesActionPerformed
 
+   //escritura de tiempo
     private void JtiempoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtiempoKeyTyped
         char num = evt.getKeyChar();
         if((num<'0' || num>'9') && (num!=(char)KeyEvent.VK_BACK_SPACE)){
@@ -205,7 +209,8 @@ public class client extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Solo se admiten números enteros","",JOptionPane.INFORMATION_MESSAGE);
 	}
     }//GEN-LAST:event_JtiempoKeyTyped
-
+    
+    //accion de publicacion
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(Jtiempo.getText().equals("") || Jmensaje.getText().equals("") 
                 || (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) || jC_id_clientes.getSelectedIndex()==-1)
@@ -217,10 +222,13 @@ public class client extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El tiempo debe estar entre 5 a 120","",JOptionPane.INFORMATION_MESSAGE);
         }else
         {
+            //Todos los campos estan llenos y son vallidos
+            
             double costo=0;
             int promo=0;
             int tiempo=Integer.parseInt(Jtiempo.getText());
             int id_p=Integer.parseInt(jC_id_clientes.getSelectedItem().toString());
+            //calculo de costos
             if(jRadioButton1.isSelected())
                 costo  =costo + (2500*15)+tiempo*500;
             if(jRadioButton2.isSelected())
@@ -228,51 +236,59 @@ public class client extends javax.swing.JFrame {
             Calendar calendario = Hora.getCalendar();
             if(calendario.get(Calendar.HOUR_OF_DAY)>= 7 && calendario.get(Calendar.HOUR_OF_DAY)<= 10)
             {
+                //caso que sea horario de promocion
                 costo = (2500*15)+ tiempo*500;
                 costo = costo - costo*0.5;
                 promo=1;
             }
+            //En caso de que el presupuesto no sea suficiente
             if(costo>presupuestos[id_p])
                 JOptionPane.showMessageDialog(null, "No alcanza el presupuesto","",JOptionPane.INFORMATION_MESSAGE);
             else if(Hora.getDate().compareTo(new Date())<0)
-            {
+            { //La Hora seleccionada no es valida
                 JOptionPane.showMessageDialog(null, "La fecha-Hora ingresada ya paso 'Invalida' ","",JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                
+               //LLamadas a los hilos correspondientes 
+               //Se resta del presupuesto al cliente seleccionado
                 presupuestos[id_p]= presupuestos[id_p]- costo;
                 if(promo==1)
-                {
+                { //Si es caso de promocion
                     Peticion P = new Peticion(1,I,Jmensaje.getText(),Hora.getDate(),tiempo,id_p,promo);
                     P.start();
                 }else
                 {
+                    //No es promocion
                     if(jRadioButton1.isSelected())
-                    {
+                    { //Hilo para pantalla grande
                         Peticion P = new Peticion(1,I,Jmensaje.getText(),Hora.getDate(),tiempo,id_p,promo);
                         P.start();
                     }
                     if(jRadioButton2.isSelected())
-                    {
+                    { //Hilo para pantalla pequeña
                         Peticion P = new Peticion(2,I,Jmensaje.getText(),Hora.getDate(),tiempo,id_p,promo);
                         P.start();
                     }
                 }
+                //Si ya gasto el presupuesto el cliente sale del modulo
                 if(presupuestos[id_p]<25000)
                     jC_id_clientes.removeItemAt(jC_id_clientes.getSelectedIndex());
                 
+                //Se limpian los campos
                 jC_id_clientes.setSelectedIndex(-1);
                 Jtiempo.setText("");
                 Jmensaje.setText("");
                 jRadioButton1.setSelected(false);
                 jRadioButton2.setSelected(false);
             }
+            if(jC_id_clientes.getComponentCount()==0)
+                System.exit(0);
        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        
+        //Boton de Atras
         I.setVisible(true);
         this.setVisible(false);
         I.mostratadmin();
