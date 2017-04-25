@@ -1,6 +1,9 @@
 
 package fever_publicity;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 public class client extends javax.swing.JFrame {
 
    int n;
@@ -40,7 +43,7 @@ public class client extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jC_id_clientes = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        dateTimePicker1 = new com.lavantech.gui.comp.DateTimePicker();
+        dateTimePicker1 = new org.netbeans.modules.form.InvalidComponent();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modulo Administrador de Peticiones");
@@ -52,11 +55,22 @@ public class client extends javax.swing.JFrame {
 
         jLabel3.setText("Tiempo:");
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
         jRadioButton1.setText("Pantalla Grande");
 
         jRadioButton2.setText("Pantalla Pequeña");
 
         jButton1.setText("Publicar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Nuevo Cliente");
 
@@ -169,10 +183,21 @@ public class client extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+              
+            
+            
+        }
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.lavantech.gui.comp.DateTimePicker dateTimePicker1;
+    private org.netbeans.modules.form.InvalidComponent dateTimePicker1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
