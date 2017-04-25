@@ -19,24 +19,38 @@ public class Peticion extends Thread{
     public Interfas I;
     public String msg;
     public Date date;
-    public int duracion,id;
-    public Peticion(Interfas I, String msg2,Date dat,int dur,int i)
+    public int duracion,id,pantalla,promocion;
+    public Peticion(int pant,Interfas I, String msg2,Date dat,int dur,int i, int promo)
     {
         this.I=I;
         msg=msg2;
         date=dat;
         duracion=dur;
         id=i;
+        pantalla=pant;
+        promocion=promo;
     }
+
+    
     
     public void run()
     {
         
-        try {
-            I.mensaje_grande(msg,date,duracion);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        if(pantalla==1)
+        {
+            try {
+                I.mensaje_grande(msg, date, duracion,id,promocion);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else
+        {
+            try {
+                I.mensaje_chico(msg, date, duracion,id,0);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }
 }

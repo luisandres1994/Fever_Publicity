@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Interfas extends javax.swing.JFrame implements Runnable  {
@@ -45,6 +47,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         Admin = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modulo Pantallas");
@@ -136,21 +139,24 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CHICHO-LOVE-JUGGERS");
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         Tabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tabla.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Hora", "Duracion", "Mensaje"
+                "Pantalla", "ID", "Hora Solicitada", "Duracion", "Mensaje"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -164,7 +170,17 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         Tabla.setEnabled(false);
         jScrollPane1.setViewportView(Tabla);
 
-        Admin.setText("jButton1");
+        Admin.setText("Admin. Peticiones");
+        Admin.setAutoscrolls(true);
+        Admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Cola de Peticiones");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,11 +199,17 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                         .addComponent(Pantallachica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1))
+                .addGap(292, 292, 292)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,15 +222,23 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                         .addComponent(Pantallachica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Pantallagrande, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Admin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminActionPerformed
+        // TODO add your handling code here:
+        Admin.setVisible(false);
+        C.setVisible(true);
+    }//GEN-LAST:event_AdminActionPerformed
     
     public void mostratadmin()
     {
@@ -226,8 +256,19 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         notifyAll();
     }
     
-    public synchronized void mensaje_grande(String msg, Date D, int dur) throws InterruptedException
+    public synchronized void mensaje_grande(String msg, Date D, int dur,int id, int promo) throws InterruptedException
     {
+       
+        DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
+        Object[] fila= new Object[5];
+        fila[0]="Pantalla Grande";
+        fila[1]=id;
+        fila[2]=D.toString();
+        fila[3]=dur;
+        fila[4]=msg;
+        modelo.addRow(fila);
+        Tabla.setModel(modelo);
+        
         while(!grande)
             wait();
         while(D.compareTo(new Date())>0)
@@ -235,11 +276,41 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         grande=false;
         mensaje.setText(msg);
         
-        Calendar c1 = new GregorianCalendar();
+        modelo=(DefaultTableModel) Tabla.getModel();
+        Vector V = modelo.getDataVector();
+        for(int i=0; i< modelo.getRowCount(); i++)
+            modelo.removeRow(i);
+        
+        Tabla.setModel(modelo);
+        for(int i=1; i<V.size();i++)
+        {
+            fila = (Object[]) V.get(i);
+            System.out.println(fila[2]);
+            
+            System.out.println(D.toString());
+            if(!fila[2].equals(D.toString()))
+                modelo.addRow(fila);
+        }
+        Tabla.setModel(modelo);
+        
+         Calendar c1 = new GregorianCalendar();
         Calendar c2;
         int min, seg;
         min = c1.get(Calendar.MINUTE) + (dur/60);
         seg= c1.get(Calendar.SECOND)+ dur%60;
+        
+        if(promo==1)
+        {
+            modelo=(DefaultTableModel) Tabla.getModel();
+            
+            fila[0]="Pantalla chica";
+            fila[1]=id;
+            fila[2]=new Date().toString();
+            fila[3]=dur;
+            fila[4]=msg;
+            modelo.addRow(fila);
+            Tabla.setModel(modelo);
+        }
         while((min*60)+seg > (c1.get(Calendar.MINUTE)*60 +c1.get(Calendar.SECOND) ) )    
         {
             c2 = new GregorianCalendar();
@@ -251,17 +322,53 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         mensaje.setText("");
         restan.setText("");
         grande=true;
+        if (promo==1) mensaje_chico(msg,new Date(),dur,id,promo);
         notifyAll();
     }
     
-    public synchronized void mensaje_chico(String msg, Date D, int dur) throws InterruptedException
+    public synchronized void mensaje_chico(String msg, Date D, int dur, int id, int promo) throws InterruptedException
     {
+        if(promo==0)
+        {
+            Calendar c1 = new GregorianCalendar();
+            DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
+            Object[] fila= new Object[5];
+            fila[0]="Pantalla chica";
+            fila[1]=id;
+            fila[2]=D.toString();
+            fila[3]=dur;
+            fila[4]=msg;
+            modelo.addRow(fila);
+            Tabla.setModel(modelo);
+        }
         while(!chica)
             wait();
         while(D.compareTo(new Date())>0)
             wait();
         chica=false;
         mensaje1.setText(msg);
+        if(promo==0)
+        {
+            DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
+            Object[] fila= new Object[5];
+            modelo=(DefaultTableModel) Tabla.getModel();
+            Vector V = modelo.getDataVector();
+            for(int i=0; i< modelo.getRowCount(); i++)
+                modelo.removeRow(i);
+
+            Tabla.setModel(modelo);
+            for(int i=1; i<V.size();i++)
+            {
+                
+                fila = (Object[]) V.get(i);
+                System.out.println(fila[2]);
+
+                System.out.println(D.toString());
+                if(!fila[2].equals(D.toString()))
+                    modelo.addRow(fila);
+            }
+            Tabla.setModel(modelo);
+        }
         
         Calendar c1 = new GregorianCalendar();
         Calendar c2;
@@ -290,6 +397,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
     private javax.swing.JLabel jL_Hora;
     private javax.swing.JLabel jL_Hora1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField mensaje;
     private javax.swing.JTextField mensaje1;
