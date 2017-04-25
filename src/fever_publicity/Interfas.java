@@ -11,16 +11,19 @@ import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
+//Esta clase es una implementacion de hilo para asi poder controlar la hora
 public class Interfas extends javax.swing.JFrame implements Runnable  {
 
     String hora,minutos,segundos;
     Thread Reloj;
     static String tiempo;
-    private boolean grande,chica;
+    private boolean grande,chica,fin;
     client C;
+    //Inicio de la Interfas de las Pantallas "Monitor"
     public Interfas(client c) {
         initComponents();
         Admin.setVisible(false);
@@ -29,6 +32,7 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         Reloj.start();
         grande=true;
         chica=true;
+        fin = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -233,7 +237,8 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Boton Admin para mostrar el modulo de Administracion de peticiones
     private void AdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminActionPerformed
         // TODO add your handling code here:
         Admin.setVisible(false);
@@ -245,7 +250,9 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         Admin.setVisible(true);
     }
     
-    public synchronized void hora() {
+    // Sincronizacion del Hilo que lleva la hora del sistema y ademas siempre notifica a todos
+    // los hilos para ver cual le toca ejecutar
+    public synchronized void hora() throws InterruptedException {
        Calendar calendario = new GregorianCalendar();
        Date horactual = new Date();
        calendario.setTime(horactual);
@@ -253,12 +260,32 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);  
         tiempo = hora+":"+minutos+":"+segundos;
+        if(C.getcountclientes()==0 && !fin)
+        {
+            fin = true;
+            int resp = JOptionPane.showConfirmDialog(null, "Ya no hay clientes, desea esperar por los hilos", "Alerta!", JOptionPane.YES_NO_OPTION);
+            if(resp==0)
+            {notifyAll();
+                wait(1000);
+            }else
+            {
+                System.exit(0);
+            }
+        }
+        if(Tabla.getRowCount()==0 && C.getcountclientes()==0 && fin )
+        {
+            
+            JOptionPane.showMessageDialog(null, "Saliendo del programa","",JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+        
         notifyAll();
     }
     
-    public synchronized void mensaje_grande(String msg, Date D, int dur,int id, int promo) throws InterruptedException
+    //Metodo Critico sincronizado para la pantalla grande
+    public synchronized void mensaje_grande(String msg, Date D, int dur,int id, int promo) throws InterruptedException, Exception
     {
-       
+       //Se carga la solicitud a la tabla que muestra la cola de solicitudes
         DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
         Object[] fila= new Object[5];
         fila[0]="Pantalla Grande";
@@ -269,48 +296,21 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         modelo.addRow(fila);
         Tabla.setModel(modelo);
         
-        while(!grande)
+        //Espera mientras su hora pedida no haya llegado  este libre la pantalla
+        while(D.compareTo(new Date())>0 || !grande)
             wait();
-        while(D.compareTo(new Date())>0)
-            wait();
+        
+        //marca la pantalla y muestra el mensaje
         grande=false;
         mensaje.setText(msg);
-        
-        modelo=(DefaultTableModel) Tabla.getModel();
-        Vector V = modelo.getDataVector();
-        for(int i=0; i< modelo.getRowCount(); i++)
-            modelo.removeRow(i);
-        
-        Tabla.setModel(modelo);
-        for(int i=1; i<V.size();i++)
-        {
-            fila = (Object[]) V.get(i);
-            System.out.println(fila[2]);
-            
-            System.out.println(D.toString());
-            if(!fila[2].equals(D.toString()))
-                modelo.addRow(fila);
-        }
-        Tabla.setModel(modelo);
-        
          Calendar c1 = new GregorianCalendar();
         Calendar c2;
         int min, seg;
         min = c1.get(Calendar.MINUTE) + (dur/60);
         seg= c1.get(Calendar.SECOND)+ dur%60;
         
-        if(promo==1)
-        {
-            modelo=(DefaultTableModel) Tabla.getModel();
-            
-            fila[0]="Pantalla chica";
-            fila[1]=id;
-            fila[2]=new Date().toString();
-            fila[3]=dur;
-            fila[4]=msg;
-            modelo.addRow(fila);
-            Tabla.setModel(modelo);
-        }
+        
+        //espera a que llegue el tiempo de salir de la pantalla
         while((min*60)+seg > (c1.get(Calendar.MINUTE)*60 +c1.get(Calendar.SECOND) ) )    
         {
             c2 = new GregorianCalendar();
@@ -319,18 +319,36 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
             c1 = new GregorianCalendar();
             wait();
         }
+        //Sale de la tabla de espera
+        modelo=(DefaultTableModel) Tabla.getModel();
+        Vector V = modelo.getDataVector();
+        for(int i=0; i< modelo.getRowCount(); i++)
+            modelo.removeRow(i);
+        
+        Tabla.setModel(modelo);
+        for(int i=1; i<V.size();i++)
+        {
+            if(V.get(i)!=null)
+            {
+                fila = (Object[]) V.get(i);
+                if(!fila[2].equals(D.toString()))
+                    modelo.addRow(fila);
+            }
+        }
+        Tabla.setModel(modelo);
+        
+        //libera la pantalla
         mensaje.setText("");
         restan.setText("");
         grande=true;
+        //en caso de ser promocion manda el mensaje a la otra pantalla
         if (promo==1) mensaje_chico(msg,new Date(),dur,id,promo);
-        notifyAll();
+        notifyAll(); 
     }
     
-    public synchronized void mensaje_chico(String msg, Date D, int dur, int id, int promo) throws InterruptedException
+    public synchronized void mensaje_chico(String msg, Date D, int dur, int id, int promo) throws InterruptedException, Exception
     {
-        if(promo==0)
-        {
-            Calendar c1 = new GregorianCalendar();
+        //Se carga la solicitud a la tabla que muestra la cola de solicitudes
             DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
             Object[] fila= new Object[5];
             fila[0]="Pantalla chica";
@@ -340,41 +358,20 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
             fila[4]=msg;
             modelo.addRow(fila);
             Tabla.setModel(modelo);
-        }
-        while(!chica)
+ 
+        //Espera mientras su hora pedida no haya llegado
+        while(D.compareTo(new Date())>0 || !chica)
             wait();
-        while(D.compareTo(new Date())>0)
-            wait();
+        //marca la pantalla y muestra el mensaje
         chica=false;
         mensaje1.setText(msg);
-        if(promo==0)
-        {
-            DefaultTableModel modelo=(DefaultTableModel) Tabla.getModel();
-            Object[] fila= new Object[5];
-            modelo=(DefaultTableModel) Tabla.getModel();
-            Vector V = modelo.getDataVector();
-            for(int i=0; i< modelo.getRowCount(); i++)
-                modelo.removeRow(i);
-
-            Tabla.setModel(modelo);
-            for(int i=1; i<V.size();i++)
-            {
-                
-                fila = (Object[]) V.get(i);
-                System.out.println(fila[2]);
-
-                System.out.println(D.toString());
-                if(!fila[2].equals(D.toString()))
-                    modelo.addRow(fila);
-            }
-            Tabla.setModel(modelo);
-        }
         
         Calendar c1 = new GregorianCalendar();
         Calendar c2;
         int min, seg;
         min = c1.get(Calendar.MINUTE) + (dur/60);
         seg= c1.get(Calendar.SECOND)+ dur%60;
+        //espera a que llegue el tiempo de salir de la pantalla
         while((min*60)+seg > (c1.get(Calendar.MINUTE)*60 +c1.get(Calendar.SECOND) ) )    
         {
             c2 = new GregorianCalendar();
@@ -383,6 +380,25 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
             c1 = new GregorianCalendar();
             wait();
         }
+        //Sale de la tabla de espera
+        modelo=(DefaultTableModel) Tabla.getModel();
+        Vector V = modelo.getDataVector();
+        for(int i=0; i< modelo.getRowCount(); i++)
+            modelo.removeRow(i);
+        
+        Tabla.setModel(modelo);
+        for(int i=1; i<V.size();i++)
+        {
+            if(V.get(i)!=null)
+            {
+                fila = (Object[]) V.get(i);
+                if(!fila[2].equals(D.toString()))
+                    modelo.addRow(fila);
+            }
+        }
+        Tabla.setModel(modelo);
+        
+        //libera la pantalla
         mensaje1.setText("");
         restan1.setText("");
         chica=true;
@@ -404,13 +420,19 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
     private javax.swing.JLabel restan;
     private javax.swing.JLabel restan1;
     // End of variables declaration//GEN-END:variables
-
+    
+    
+    //Hilo Infinito que muestra la hora y controla la llamada de los demas hilos
     @Override
     public void run() {
         Thread current = Thread.currentThread();
         while(current==Reloj)
         {
-            hora();
+            try {
+                hora();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Interfas.class.getName()).log(Level.SEVERE, null, ex);
+            }
             jL_Hora.setText(tiempo);
             jL_Hora1.setText(tiempo);
             
