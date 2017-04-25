@@ -243,7 +243,7 @@ public class client extends javax.swing.JFrame {
             {
                 //caso que sea horario de promocion
                 costo = (2500*15)+ tiempo*500;
-                costo = costo - costo*0.5;
+                costo = costo - costo*0.05;
                 promo=1;
             }
             //En caso de que el presupuesto no sea suficiente

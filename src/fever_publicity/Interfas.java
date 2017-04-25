@@ -55,12 +55,13 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modulo Pantallas");
-        setPreferredSize(new java.awt.Dimension(1000, 650));
         setResizable(false);
 
         Pantallagrande.setTitle("Pantalla Grande");
         Pantallagrande.setPreferredSize(new java.awt.Dimension(500, 400));
         Pantallagrande.setVisible(true);
+
+        jL_Hora.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         mensaje.setEditable(false);
         mensaje.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -77,14 +78,14 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
                 .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(PantallagrandeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallagrandeLayout.createSequentialGroup()
-                        .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallagrandeLayout.createSequentialGroup()
                         .addComponent(restan, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(152, 152, 152))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallagrandeLayout.createSequentialGroup()
                         .addComponent(mensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51))))
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallagrandeLayout.createSequentialGroup()
+                        .addComponent(jL_Hora, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         PantallagrandeLayout.setVerticalGroup(
             PantallagrandeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +103,8 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         Pantallachica.setPreferredSize(new java.awt.Dimension(350, 300));
         Pantallachica.setVisible(true);
 
+        jL_Hora1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
         mensaje1.setEditable(false);
         mensaje1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         mensaje1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -114,18 +117,18 @@ public class Interfas extends javax.swing.JFrame implements Runnable  {
         PantallachicaLayout.setHorizontalGroup(
             PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PantallachicaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
-                        .addComponent(jL_Hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
-                        .addComponent(restan1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))))
-            .addGroup(PantallachicaLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(mensaje1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 58, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
+                        .addComponent(restan1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PantallachicaLayout.createSequentialGroup()
+                        .addComponent(jL_Hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         PantallachicaLayout.setVerticalGroup(
             PantallachicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
