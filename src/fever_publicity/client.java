@@ -51,7 +51,7 @@ public class client extends javax.swing.JFrame {
         setTitle("Modulo Administrador de Peticiones");
         setResizable(false);
 
-        jLabel1.setText("I:D Cliente");
+        jLabel1.setText("ID Cliente:");
 
         jLabel2.setText("Mensaje que quiere publicar:");
 
