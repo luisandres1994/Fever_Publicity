@@ -109,7 +109,10 @@ public class entrada extends javax.swing.JFrame {
         if(txtA.getText().equals("") || txtB.getText().equals(""))
     {
         JOptionPane.showMessageDialog(null, "faltan datos por ingresar","",JOptionPane.INFORMATION_MESSAGE);
-    }
+    }else if(Integer.parseInt(txtB.getText())<25000)
+        {
+            JOptionPane.showMessageDialog(null, "El monto mínimo debe ser 25000","",JOptionPane.INFORMATION_MESSAGE);
+        } 
     else
     {
         int n;
