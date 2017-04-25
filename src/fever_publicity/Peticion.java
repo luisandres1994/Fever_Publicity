@@ -14,6 +14,8 @@ import java.util.logging.Logger;
  *
  * @author Andres
  */
+
+//HILO QUE EJECUTA LOS MENSJAES EN LAS PANTALLAS
 public class Peticion extends Thread{
     
     public Interfas I;
@@ -42,12 +44,16 @@ public class Peticion extends Thread{
                 I.mensaje_grande(msg, date, duracion,id,promocion);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else
         {
             try {
                 I.mensaje_chico(msg, date, duracion,id,0);
             } catch (InterruptedException ex) {
+                Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(Peticion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

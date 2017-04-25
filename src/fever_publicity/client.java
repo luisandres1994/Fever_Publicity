@@ -199,8 +199,13 @@ public class client extends javax.swing.JFrame {
     private void jC_id_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jC_id_clientesActionPerformed
         if(jC_id_clientes.getSelectedIndex()!=-1)jText_monto.setText(String.valueOf(presupuestos[Integer.parseInt(jC_id_clientes.getSelectedItem().toString())]));
         else jText_monto.setText("");
+        
     }//GEN-LAST:event_jC_id_clientesActionPerformed
-
+    
+    public int getcountclientes()
+    {
+        return jC_id_clientes.getItemCount();
+    }
    //escritura de tiempo
     private void JtiempoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JtiempoKeyTyped
         char num = evt.getKeyChar();
@@ -281,8 +286,7 @@ public class client extends javax.swing.JFrame {
                 jRadioButton1.setSelected(false);
                 jRadioButton2.setSelected(false);
             }
-            if(jC_id_clientes.getComponentCount()==0)
-                System.exit(0);
+            
        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
